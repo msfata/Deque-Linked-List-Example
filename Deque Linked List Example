@@ -1,0 +1,44 @@
+package com.interviews;
+
+import java.util.Deque;
+import java.util.LinkedList;
+
+public class Practice {
+
+	public static void main(String[] args) {
+		System.out.println(isBalanced("{[()]}"));
+	}
+
+	private static boolean isBalanced(String str) {
+		Deque<Character> l = new LinkedList<Character>();
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '{' || str.charAt(i) == '[' || str.charAt(i) == '(' || str.charAt(i) == '}'
+					|| str.charAt(i) == ']' || str.charAt(i) == ')') {
+				if (str.charAt(i) == '{' || str.charAt(i) == '[' || str.charAt(i) == '(') {
+					l.push(str.charAt(i));
+				} else {
+					switch (str.charAt(i)) {
+					case '}':
+						if (l.isEmpty() || l.pop() != '{') {
+							return false;
+						}
+						break;
+					case ']':
+						if (l.isEmpty() || l.pop() != '[') {
+							return false;
+						}
+						break;
+					case ')':
+						if (l.isEmpty() || l.pop() != '(') {
+							return false;
+						}
+						break;
+					}
+				}
+			} else {
+				return false;
+			}
+		}
+		return l.isEmpty();
+	}
+}
